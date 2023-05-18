@@ -11,7 +11,7 @@ class Pricing {
   }
 
   set amount(amount) {
-    if (typeof this.amount === 'number') this._amount = this.amount;
+    if (typeof amount === 'number') this._amount = amount;
   }
 
   get currency() {
