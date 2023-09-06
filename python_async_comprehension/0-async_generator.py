@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """takes no arguments"""
+
+
 import asyncio
 import random
 from typing import Generator
