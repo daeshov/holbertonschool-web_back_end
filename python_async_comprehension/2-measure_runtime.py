@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """takes no arguments"""
 import asyncio
-import random
 from time import perf_counter
 from typing import Generator, List 
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
-async def measure_runtime () -> float:
+async def measure_runtime() -> float:
     """"""
     start = perf_counter()
 
