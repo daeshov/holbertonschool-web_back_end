@@ -7,7 +7,7 @@ from typing import Generator, List
 async_generator = __import__('1-async_comprehension').async_generator
 
 
-async def measure_runtime () -> List float:
+async def measure_runtime () -> float:
     """"""
     start = perf_counter()
 
