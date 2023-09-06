@@ -3,10 +3,10 @@
 from async_generator import async_generator
 import asyncio
 import random
-from typing import Generator
+from typing import Generator, List 
 
 
-async def async_comprehension():
+async def async_comprehension() -> List[float]:
     """"""
-    random_numbers = [i async for i in async_generator()]
+    random_numbers = [random_numbers async for i in async_generator()]
     return random_numbers
