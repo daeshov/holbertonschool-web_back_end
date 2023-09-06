@@ -4,7 +4,7 @@ import asyncio
 import random
 from time import perf_counter
 from typing import Generator, List 
-async_generator = __import__('1-async_comprehension').async_generator
+async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
 async def measure_runtime () -> float:
