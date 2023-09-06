@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Task 4"""
+"""task 4"""
 import random
 import asyncio
 from typing import List
