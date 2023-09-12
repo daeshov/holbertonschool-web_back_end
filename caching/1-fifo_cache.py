@@ -8,14 +8,14 @@ from base_caching import BaseCaching
 class FIFOCache(BaseCaching):
     """ creating FIFOCache class """
     def __init__(self):
-      super().__init__()
+        super().__init__()
 
     def put(self, key, item):
         """ adding an item to cache and implenting FIFO """
         if key is not None and item is not None:
             self.cache_data[key] = item
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            old_key = next(iter(self.cache_data))
+                old_key = next(iter(self.cache_data))
             del self.cache_data[old_key]
             print(f"DISCARD: {old_key}/n")
 
@@ -23,4 +23,3 @@ class FIFOCache(BaseCaching):
         """ returns item by key """
         if key is not None:
             return self.cache_data.get(key, None)
-
