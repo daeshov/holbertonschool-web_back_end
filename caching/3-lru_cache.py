@@ -18,7 +18,6 @@ class LRUCache(BaseCaching):
                 least_used = self.insertion_order.pop()
                 del self.cache_data[least_used]
                 print(f"DISCARD: {least_used}")
-            self.insertion_order.append(key)
             self.cache_data[key] = item
 
     def get(self, key):
