@@ -16,6 +16,6 @@ def put(self, key, item):
 
 def get(self, key):
     """ returns value linked to key """
-    if key is None:
+    if key is not None and key in self.cache_data:
         return None
     return self.cache_data.get(key, None)
