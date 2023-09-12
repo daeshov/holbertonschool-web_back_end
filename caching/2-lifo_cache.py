@@ -14,7 +14,7 @@ class LIFOCache(BaseCaching):
         """ adding an item to cache and implenting LIFO """
         if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                last_item = self.queue.pop()
+                last_item = self.get_last_item()
                 del self.cache_data[last_item]
                 print(f"DISCARD: {last_item}")
 
