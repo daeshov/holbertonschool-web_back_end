@@ -7,8 +7,6 @@ from base_caching import BaseCaching
 
 class BasicCache(BaseCaching):
     """ creating class """
-    def __init__(self):
-        self.cache_data = {}
 
     def put(self, key, item):
         """ adding an item to cache """
