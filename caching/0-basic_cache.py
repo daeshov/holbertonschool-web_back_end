@@ -7,16 +7,17 @@ from base_caching import BaseCaching
 
 class BasicCache(BaseCaching):
     """ creating class """
-
+    def __init__(self):
+      self.cache_data = {}
 
 def put(self, key, item):
-    """ adding item to cache """
+    """ adding an item to cache """
     if key is not None and item is not None:
         self.cache_data[key] = item
 
 
 def get(self, key):
-    """ returns value linked to key """
+    """ returns item by key """
     if key is not None and key in self.cache_data:
         return self.cache_data.get[key]
     return None
