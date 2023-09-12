@@ -14,11 +14,12 @@ class LIFOCache(BaseCaching):
         """ adding an item to cache and implenting LIFO """
         if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                last_item = self.pop()
+                last_item = self.insertion_order.pop()
                 del self.cache_data[last_item]
                 print(f"DISCARD: {last_item}")
 
             self.cache_data[key] = item
+            self.insertion_order.append(key)
 
     def get(self, key):
         """ returns item by key """
