@@ -11,10 +11,10 @@ class LIFOCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        """ adding an item to cache and implenting FIFO """
+        """ adding an item to cache and implenting LIFO """
         if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                last_item = self.insertion_order.pop()
+                last_item = self.pop()
                 del self.cache_data[last_item]
                 print(f"DISCARD: {last_item}")
 
