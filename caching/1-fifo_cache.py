@@ -13,7 +13,6 @@ class FIFOCache(BaseCaching):
     def put(self, key, item):
         """ adding an item to cache and implenting FIFO """
         if key is not None and item is not None:
-            self.cache_data[key] = item
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 old_key = next(iter(self.cache_data))
                 del self.cache_data[old_key]
