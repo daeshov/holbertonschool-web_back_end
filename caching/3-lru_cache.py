@@ -20,11 +20,10 @@ class LRUCache(BaseCaching):
                 print(f"DISCARD: {least_used}")
             self.insertion_order.append(key)
             self.cache_data[key] = item
-            
 
     def get(self, key):
         """ returns item by key """
         if key is not None:
-            self.insertion_order.remove(key)            
+            self.insertion_order.remove(key)
             self.insertion_order.append(key)
             return self.cache_data.get(key, None)
