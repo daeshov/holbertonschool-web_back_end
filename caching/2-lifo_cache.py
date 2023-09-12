@@ -18,7 +18,7 @@ class LIFOCache(BaseCaching):
                 last_item = self.insertion_order.pop()
                 del self.cache_data[last_item]
                 print(f"DISCARD: {last_item}")
-
+            self.insertion_order.append(key)
             self.cache_data[key] = item
 
     def get(self, key):
