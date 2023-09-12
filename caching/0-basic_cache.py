@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" task 0 Create a class BasicCache that inherits from BaseCaching and is a caching system
+""" task 0 Create a class BasicCache that inherits from BaseCaching
+and is a caching system
 """
 from base_caching import BaseCaching
 
@@ -17,5 +18,5 @@ def put(self, key, item):
 def get(self, key):
     """ returns value linked to key """
     if key is not None and key in self.cache_data:
-        return None
-    return self.cache_data.get(key, None)
+        return self.cache_data.get(key, None)
+    return None
