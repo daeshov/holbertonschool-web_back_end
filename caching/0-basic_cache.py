@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ task 0 Create a class BasicCache that inherits from BaseCaching
 and is a caching system
 """
