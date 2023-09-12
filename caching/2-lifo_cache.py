@@ -19,7 +19,6 @@ class LIFOCache(BaseCaching):
                 print(f"DISCARD: {last_item}")
 
             self.cache_data[key] = item
-            self.append(key)
 
     def get(self, key):
         """ returns item by key """
