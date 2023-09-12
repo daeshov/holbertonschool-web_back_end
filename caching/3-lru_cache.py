@@ -15,9 +15,9 @@ class LRUCache(BaseCaching):
         """ adding an item to cache and implenting LRU """
         if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                last_item = self.insertion_order.pop()
-                del self.cache_data[last_item]
-                print(f"DISCARD: {last_item}")
+                least_used = self.insertion_order.pop()
+                del self.cache_data[least_used]
+                print(f"DISCARD: {least_used}")
             self.insertion_order.append(key)
             self.cache_data[key] = item
 
