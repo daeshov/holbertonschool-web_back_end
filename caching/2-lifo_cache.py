@@ -9,7 +9,7 @@ class LIFOCache(BaseCaching):
     """ creating LIFOCache class """
     def __init__(self):
         super().__init__()
-        insertion_order = []
+        self.insertion_order = []
 
     def put(self, key, item):
         """ adding an item to cache and implenting LIFO """
