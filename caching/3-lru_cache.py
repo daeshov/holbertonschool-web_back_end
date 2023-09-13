@@ -23,7 +23,7 @@ class LRUCache(BaseCaching):
 
     def get(self, key):
         """ returns item by key """
-        if key is not None:
+        if key is not None and key in self.cache_data:
             self.insertion_order.remove(key)
             self.insertion_order.append(key)
             return self.cache_data.get(key, None)
