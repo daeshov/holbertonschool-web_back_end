@@ -39,17 +39,6 @@ class Server:
         """
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
-
-        dataset = self.dataset()
-        total_rows = len(dataset)
-        start_index, end_index = index_range(page, page_size)
-
-        if start_index >= total_rows:
-            return []
-        end_index = min(end_index, total_rows - 1)
-
-        result = dataset[start_index:end_index + 1]
-
-        assert len(result) == end_index - start_index + 1
-
-        return result
+        pagination = index_range(page, page_size)
+        self.dataset()
+        return self.__dataset[pagination[0]:pagination[1]]      
