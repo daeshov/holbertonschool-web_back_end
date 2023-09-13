@@ -37,8 +37,9 @@ class Server:
         arguments page with default value 1 and page_size
         with default value 10.
         """
-        assert isinstance(page) == int and page >= 1
-        assert isinstance(page_size) == int and page_size >= 1
+        assert isinstance(page, int) and page >= 1
+        assert isinstance(page_size, int) and page_size > 0
+
         pagination = index_range(page, page_size)
         self.dataset()
         return self.__dataset[pagination[0]:pagination[1]]
