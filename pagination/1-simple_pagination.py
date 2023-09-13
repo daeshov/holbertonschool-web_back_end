@@ -44,4 +44,6 @@ class Server:
             return []
         end_index = min(end_index, total_rows - 1)
 
-        return dataset[start_index:end_index + 1]
+        assert len(result) == end_index - start_index + 1, "Returned list has an incorrect length"
+        
+        return result
