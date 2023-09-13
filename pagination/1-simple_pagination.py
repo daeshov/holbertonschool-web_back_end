@@ -34,7 +34,7 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Implement a method named get_page that takes two integer
-        arguments page with default value 1 and page_size 
+        arguments page with default value 1 and page_size
         with default value 10.
         """
         assert isinstance(page, int) and page > 0
@@ -50,6 +50,6 @@ class Server:
 
         result = dataset[start_index:end_index + 1]
 
-        assert len(result) == end_index - start_index + 1, "Returned list has an incorrect length"
-        
+        assert len(result) == end_index - start_index + 1
+
         return result
