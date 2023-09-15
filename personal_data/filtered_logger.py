@@ -4,8 +4,12 @@ that returns the log message obfuscated
 """
 import logging
 import re
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separtor):
-    regex = rf'({separtor.join})\s*:\s*\S+'
-    return re.sub(regex,f'\\1: {redaction}', message)
+def filter_datum(fields: List[str], redaction: str, message: str, separtor: str) -> str:
+  """Returns: log message obfuscated"""
+  for field in fields:
+    message = re.sub(f'{field}=(.*?){separator}',
+      f'{field}={redaction}{separator}', message)
+    return message
