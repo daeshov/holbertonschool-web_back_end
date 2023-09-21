@@ -67,6 +67,9 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 def main():
+    """ a main function that takes no
+    arguments and returns nothing
+    """
     Logger = get_logger()
 
     db = get_db()
