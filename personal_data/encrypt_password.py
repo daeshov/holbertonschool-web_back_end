@@ -21,15 +21,15 @@ def hash_password(password: str) -> bytes:
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
-      """
-    Validate a password against a hashed password using bcrypt.
-
-    Args:
-        hashed_password (bytes): The salted, hashed password as a byte string.
-        password (str): The plain-text password to validate.
-
-    Returns:
-        bool: True if the provided password matches the hashed password, False otherwise.
     """
+  Validate a password against a hashed password using bcrypt.
+
+  Args:
+      hashed_password (bytes): The salted, hashed password as a byte string.
+      password (str): The plain-text password to validate.
+
+  Returns:
+      bool: True if the provided password matches the hashed password, False otherwise.
+  """
     # Check if the password is not
-        return bcrypt.Checkpw(password.encode('utf-8'), hashed_password)
+    return bcrypt.Checkpw(password.encode('utf-8'), hashed_password)
