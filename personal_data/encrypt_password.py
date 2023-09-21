@@ -5,11 +5,14 @@ import bcrypt
 
 
 def hash_password(password: str) -> bytes:
-    """bcrypt package to perform
+    """returns a salted, hashed password, which is a byte string
 
-  Returns:
-      _type_: _description_
-       the hashing with hashpw """
+    Args:
+        password (str):
+
+    Returns:
+        bytes: hashed password
+    """
 
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
