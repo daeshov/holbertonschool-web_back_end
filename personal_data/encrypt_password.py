@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
+"""module for password encryption and validation."""
 import bcrypt
-"""a module that encrypts passwords
-    """
 
 
 def hash_password(password: str) -> bytes:
