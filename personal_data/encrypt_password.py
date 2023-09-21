@@ -6,7 +6,10 @@ import bcrypt
 
 def hash_password(password: str) -> bytes:
     """bcrypt package to perform
-    the hashing with hashpw"""
+
+  Returns:
+      _type_: _description_
+       the hashing with hashpw """
 
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
