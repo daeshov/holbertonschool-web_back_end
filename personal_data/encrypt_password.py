@@ -30,14 +30,6 @@ def is_valid(hashed_password: bytes, password: str) -> bool:
 
     Returns:
         bool: True if the provided password matches the hashed password, False otherwise.
-
-    Example:
-        >>> hashed_password = b'$2b$12$P8zvJeJRVY5/VZK...examplehashedpassword'
-        >>> password = "my_secure_password"
-        >>> valid = is_valid(hashed_password, password)
-        >>> print(valid)
-        True
     """
-    # Check if the password is not empty
-    if not password:
-        return False
+    # Check if the password is not
+        return bcrypt.Checkpw(password.encode('utf-8'), hashed_password)
