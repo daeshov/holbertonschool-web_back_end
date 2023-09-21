@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import bcrypt
-  """a module that encrypts passwords
-  """
+"""a module that encrypts passwords
+    """
 
 
 def hash_password(password: str) -> bytes:
