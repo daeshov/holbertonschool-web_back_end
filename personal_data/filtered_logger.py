@@ -65,12 +65,13 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         password=os.getenv('PERSONAL_DATA_DB_USERNAME', '')
     )
 
+
 def main():
     Logger = get_logger()
 
     db = get_db()
     cursor = db.cursor()
-    
+
     cursor.execute("SELECT * FROM users;")
 
     for row in cursor:
@@ -81,5 +82,4 @@ def main():
             "ssn": row[3],
             "password": row[4],
             "last_login": row[5],
-            ""
         }
