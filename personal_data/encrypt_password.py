@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import bcrypt
-"""function that expects one string
-    argument name password"""
+  """a module that encrypts passwords
+  """
 
 
 def hash_password(password: str) -> bytes:
