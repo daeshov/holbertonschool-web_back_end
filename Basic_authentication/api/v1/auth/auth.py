@@ -15,13 +15,15 @@ class Auth():
         """
         if request is None:
             return None
+        if 'Authorization' not in request.headers:
+            return None
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """None - request will be the
         Flask request object
         """
-        if request is None:
-            return None
+        return None
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ returns False - path
