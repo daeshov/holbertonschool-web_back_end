@@ -22,7 +22,7 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def Unauthorized(error) -> str:
+def unauthorized(error) -> str:
     """ error handler for this status code
 
     Args:
@@ -36,7 +36,7 @@ def Unauthorized(error) -> str:
 
 
 @app.errorhandler(403)
-def Forbidden(error) -> str:
+def forbidden(error) -> str:
     """ error handler for this status code
 
     Args:
