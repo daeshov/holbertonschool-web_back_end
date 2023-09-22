@@ -4,6 +4,7 @@
 from typing import List, TypeVar
 from flask import request
 
+
 User = TypeVar('User')
 
 
@@ -33,7 +34,6 @@ class Auth():
         """
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
-
         if path is None:
             return True
         path = path + '/' if not path.endswith('/') else path
