@@ -23,7 +23,7 @@ class Auth():
         if request is None:
             return None
 
- def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ returns False - path
         and excluded_paths
         """
@@ -32,4 +32,3 @@ class Auth():
 
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
-
