@@ -15,11 +15,7 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
-"""inatance for Auth if AUTH_TYPE is set
-
-    Returns:
-        _type_: _description_
-"""
+# inatance for Auth if AUTH_TYPE is set
 
 if getenv("AUTH_TYPE") == "basic_auth":
     auth = BasicAuth()
