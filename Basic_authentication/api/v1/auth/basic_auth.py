@@ -49,5 +49,5 @@ class BasicAuth(Auth):
             return None, None
         if ':' not in decoded_base64_authorization_header:
             return None, None
-        else:
-            return f"{user_email}:{user_password}"
+        user_email, user_password = decoded_string.split(':')
+        return f"{user_email}:{user_password}"
