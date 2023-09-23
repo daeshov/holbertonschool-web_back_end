@@ -46,7 +46,7 @@ class BasicAuth(Auth):
         if decoded_base64_authorization_header is None:
             return None, None
         if not isinstance(decoded_base64_authorization_header, str):
-            return None
+            return None, None
         if ':' not in decoded_base64_authorization_header:
             return None, None
         else:
