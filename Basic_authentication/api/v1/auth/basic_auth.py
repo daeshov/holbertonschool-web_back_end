@@ -4,6 +4,7 @@ import base64
 from typing import TypeVar
 from api.v1.auth.auth import Auth
 import re
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -63,12 +64,12 @@ class BasicAuth(Auth):
         if not isinstance(user_pwd, str):
             return None
         try:
-            users = user.search({'email': user_email})
+            users = User.search({'email': user_email})
 
             if not users:
                 return None
 
-                user = user[0]
+            user = users[0]
 
             if not user.is_valid_password(user_pwd):
                 return None
