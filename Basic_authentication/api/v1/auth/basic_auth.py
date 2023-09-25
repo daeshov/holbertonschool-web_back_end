@@ -3,6 +3,7 @@
 import base64
 from typing import TypeVar
 from api.v1.auth.auth import Auth
+import re
 
 
 class BasicAuth(Auth):
@@ -49,7 +50,7 @@ class BasicAuth(Auth):
         if ':' not in decoded_base64_authorization_header:
             return None, None
         user_data = decoded_base64_authorization_header.split(':')
-        return f"{user_email}:{user_password}"
+        return tuple(re.split(':', decoded_base64_authorization_header))
 
     def user_object_from_credentials(
             self,
