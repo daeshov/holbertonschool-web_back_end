@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""a new Flask view that handles all routes for 
+the Session authentication
+"""
 from flask import Flask, request, jsonify, abort
 from api.v1.views import app_views
 from models.user import User
