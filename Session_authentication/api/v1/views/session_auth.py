@@ -2,7 +2,7 @@
 """a new Flask view that handles all routes for
 the Session authentication
 """
-from flask import request, jsonify, make_response, abort
+from flask import request, Flask, jsonify, make_response, abort
 from api.v1.views import app_views
 from models.user import User
 from os import environ
@@ -41,4 +41,4 @@ def session_login():
             '_my_session_id'),
         session_id)
 
-    return response, 200
+    return response
