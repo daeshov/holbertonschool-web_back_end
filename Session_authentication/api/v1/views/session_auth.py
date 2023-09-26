@@ -2,7 +2,7 @@
 """a new Flask view that handles all routes for
 the Session authentication
 """
-from flask import Flask, request, jsonify, abort
+from flask import request, jsonify, make_response, abort
 from api.v1.views import app_views
 from models.user import User
 from os import environ
@@ -21,8 +21,9 @@ def session_login():
     if not password:
         return jsonify({"error": "password missing"}), 400
 
-    user = User.search(email)
-    if not user:
+    try:
+        user = User.search({"email": email})
+    except Exception:
         return jsonify({"error": "no user found for this email"}), 404
 
     if not user.is_valid_password(password):
