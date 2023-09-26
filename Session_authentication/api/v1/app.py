@@ -2,6 +2,7 @@
 """
 Route module for the API
 """
+
 from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
@@ -18,10 +19,7 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 # inatance for Auth if AUTH_TYPE is set
 
-if getenv("AUTH_TYPE") == "basic_auth":
-    auth = BasicAuth()
-else:
-    auth = Auth()
+auth = BasicAuth() if getenv("AUTH_TYPE") == "basic_auth" else Auth()
 
 
 @app.errorhandler(404)
