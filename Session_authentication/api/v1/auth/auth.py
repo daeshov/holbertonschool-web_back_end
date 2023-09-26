@@ -3,6 +3,7 @@
 """
 from typing import List, TypeVar
 from flask import request
+import os
 
 
 User = TypeVar('User')
@@ -40,3 +41,13 @@ class Auth():
         if path in excluded_paths:
             return False
         return True
+
+    def session_cookie(self, request=None):
+        """returns a cookie value from a request
+        """
+
+        if request is None:
+            return None
+        session_cookie_name = os.environ.get('SESSION_NAME', '_my_session_id')
+
+        return request.cookies.get(session_cookie_name)
