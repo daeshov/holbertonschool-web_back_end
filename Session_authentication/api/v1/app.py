@@ -65,6 +65,8 @@ def before_request():
     """
     if auth is None:
         return None
+
+    request.current_user = auth.current_user(request)
     if not auth.require_auth(
         request.path, ['/api/v1/status/',
                        '/api/v1/unauthorized/',
