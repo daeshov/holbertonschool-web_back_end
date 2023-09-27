@@ -36,10 +36,10 @@ class DB:
         """method should save the user
         to the database
         """
-        newuser = User(email=email, hashed_password=hashed_password)
-        self._session.add(newuser)
+        new_user = User(email=email, hashed_password=hashed_password)
+        self._session.add(new_user)
         self._session.commit()
-        return newuser
+        return new_user
 
     def find_user_by(self, **kwargs) -> User:
         """fuction to find user
@@ -48,8 +48,8 @@ class DB:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is not None:
                 return user
-        except TypeError:
-            raise InvalidRequestError
+        except TypeError as e:
+            raise InvalidRequestError from e
         if user is None:
             raise NoResultFound
         return user
