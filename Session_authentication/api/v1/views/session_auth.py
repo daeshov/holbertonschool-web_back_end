@@ -37,12 +37,12 @@ def session_login():
     from api.v1.app import auth
     session_id = auth.create_session(user.id)
 
-    from os import getenv
-    session_name = getenv('SESSION_NAME')
+    from os import environ
+    session_name = environ.get('SESSION_NAME')
 
     # Set the cookie with the session ID
     response = make_response(user.to_json())
-    response.set_cookie(
-        session_name, session_id)
+    response.set_cookie
+    environ.get(session_name, session_id)
 
     return response
