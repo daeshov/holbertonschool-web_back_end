@@ -5,8 +5,6 @@ the Session authentication
 from flask import request, Flask, jsonify, make_response, abort
 from api.v1.views import app_views
 
-from os import environ
-
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_login():
