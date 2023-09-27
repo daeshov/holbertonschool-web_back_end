@@ -41,7 +41,7 @@ def session_login():
     session_name = environ.get('SESSION_NAME')
 
     # Set the cookie with the session ID
-    response = jsonify(user.to_json())
+    response = make_response(user.to_json())
     response.set_cookie(
         environ.get(
             'SESSION_NAME',
