@@ -4,7 +4,7 @@ the Session authentication
 """
 from flask import request, Flask, jsonify, make_response, abort
 from api.v1.views import app_views
-from models.user import User
+
 from os import environ
 
 
@@ -21,14 +21,20 @@ def session_login():
     if not password:
         return jsonify({"error": "password missing"}), 400
 
+    from models.user import User
     try:
-        user = User.search({'email': email})
+        users = User.search({'email': email})
     except Exception:
         return jsonify({"error": "no user found for this email"}), 404
 
-    if not user.is_valid_password(password):
-        return jsonify({"error": "wrong password"}), 401
+    if not users:
+        return jsonify({"error": "no user found for this email"}), 404
 
+    user = users[0]
+
+    if not user.is_valid_password(password):
+        return jsonify({"error" : "wrong password"}), 401
+    
         # Create a Session ID
     from api.v1.app import auth
     session_id = auth.create_session(user.id)
