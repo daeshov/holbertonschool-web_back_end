@@ -5,8 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
 
@@ -48,7 +48,8 @@ class DB:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is not None:
                 return user
-        except TypeError as e:
-            raise InvalidRequestError from e
+        except TypeError:
+            raise InvalidRequestError
         if user is None:
-            return user
+            raise NoResultFound
+        return user
