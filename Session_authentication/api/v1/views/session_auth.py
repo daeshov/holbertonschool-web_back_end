@@ -43,8 +43,7 @@ def session_login():
 
     # Set the cookie with the session ID
     response = make_response(user.to_json())
-    response.set_cookie
-    environ.get(session_name, session_id)
+    response.set_cookie(session_name, session_id)
 
     return response
 
@@ -54,7 +53,7 @@ def session_login():
                  strict_slashes=False)
 def session_logout():
     """adding a new route DELETE
-    """    
+    """
     from api.v1.app import auth
     # Call the destroy_session method to delete the session ID
     if auth.destroy_session(request) is FALSE:
