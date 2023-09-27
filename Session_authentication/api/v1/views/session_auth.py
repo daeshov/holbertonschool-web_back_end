@@ -53,8 +53,8 @@ def session_login():
                  methods=['DELETE'],
                  strict_slashes=False)
 def session_logout():
-  """adding a new route DELETE
-  """    
+    """adding a new route DELETE
+    """    
     from api.v1.app import auth
     # Call the destroy_session method to delete the session ID
     if auth.destroy_session(request) is FALSE:
