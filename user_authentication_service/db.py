@@ -51,7 +51,7 @@ class DB:
     def update_user(self, user_id: int, **Kwargs) -> None:
         """ will use find_user_by to locate the user to update,
         then will update the users attributes as passed
-        """ 
+        """
         user = self.find_user_by(id=user_id)
 
         for key, value in Kwargs.items():
@@ -60,5 +60,3 @@ class DB:
             else:
                 raise ValueError
         self._session.commit()
-
-        
