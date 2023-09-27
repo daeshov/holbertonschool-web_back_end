@@ -45,7 +45,7 @@ def session_login():
     response.set_cookie(
         environ.get(
             'SESSION_NAME',
-            '_my_session_id'),
+            'my_session_id'),
         session_id)
 
     return response
