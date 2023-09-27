@@ -38,14 +38,9 @@ class SessionAuth(Auth):
         if request is None:
             return None
 
-        # Get the session cookie value
-        session_id = self.session_cookie(request)
+        if session_id := self.session_cookie(request):
+            if user_id := self.user_id_for_session_id(session_id):
+                return self.new_method(user_id)
 
-        if session_id:
-            # Retrieve the User ID based on the session ID
-            user_id = self.user_id_for_session_id(session_id)
-
-            if user_id:
-                # Retrieve the User instance from the database using User.get()
-                user = User.get(user_id)
-                return user
+    def new_method(self, user_id):
+        return User.get(user_id)
