@@ -33,7 +33,7 @@ def session_login():
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
 
-        # Create a Session ID
+    # Create a Session ID
     from api.v1.app import auth
     session_id = auth.create_session(user.id)
 
@@ -42,7 +42,6 @@ def session_login():
 
     # Set the cookie with the session ID
     response = make_response(user.to_json())
-    response.status_code = 200 
     response.set_cookie(
         environ.get(
             'SESSION_NAME',
