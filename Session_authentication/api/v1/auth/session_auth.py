@@ -38,15 +38,13 @@ class SessionAuth(Auth):
         if request is None:
             return None
 
-        if session_id := self.session_cookie(request):
-            if user_id := self.user_id_for_session_id(session_id):
-                return self.new_method(user_id)
-
-    def new_method(self, user_id):
+        session_id = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(session_id)
+        from models.user import User
         return User.get(user_id)
 
     def destroy_session(self, request=None):
-        """that deletes the user session / logout
+        """that deletes the user session logout
         """
         if request is None:
             return False
