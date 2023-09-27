@@ -27,3 +27,5 @@ Setup
 You will need to install bcrypt
 
 pip3 install bcrypt
+
+autopep8 --in-place --aggressive --aggressive
