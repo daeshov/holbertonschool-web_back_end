@@ -47,3 +47,18 @@ class DB:
             return self._session.query(User).filter_by(**kwargs).one()
         except (NoResultFound, InvalidRequestError):
             raise
+
+    def update_user(self, user_id: int, **Kwargs) -> None:
+        """ will use find_user_by to locate the user to update,
+        then will update the users attributes as passed
+        """ 
+        user = self.find_user_by(id=user_id)
+
+        for key, value in Kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
+                raise ValueError
+        self._session.commit()
+
+        
