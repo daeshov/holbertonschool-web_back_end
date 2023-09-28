@@ -47,7 +47,7 @@ def login() -> str:  # sourcery skip: use-named-expression
 def logout() -> str:  # sourcery skip: use-named-expression
     """Logout function to destroy the session"""
     session_id = request.cookies.get("session_id")
-        # If session ID is not found, respond with a 403 status
+    # If session ID is not found, respond with a 403 status
     user = AUTH.get_user_from_session_id(session_id=session_id)
 
     if user:
@@ -56,7 +56,7 @@ def logout() -> str:  # sourcery skip: use-named-expression
         return redirect("/")
     else:
         # If the user does not exist, respond with a 403 status
-        abort (403)
+        abort(403)
 
 
 if __name__ == "__main__":
