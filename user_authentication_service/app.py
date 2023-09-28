@@ -33,7 +33,7 @@ def login() -> str:  # sourcery skip: use-named-expression
     """
     email = request.form.get('email')
     password = request.form.get('password')
-    if not Auth.valid_login(email, password):
+    if not AUTH.valid_login(email, password):
         abort(401)
 
     session_id = AUTH.create_session(email)
