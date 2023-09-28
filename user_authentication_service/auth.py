@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import bcrypt
+import contextlib
 from db import DB
 from user import User
 from uuid import uuid4
@@ -78,3 +79,11 @@ class Auth:
             return self._db.find_user_by(session_id=session_id)
         except NoResultFound:
             return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """destroy session method
+        """
+        with contextlib.suppress(NoResultFound):
+            user = self._db.find_user_by(id=user_id)
+            user.session_id = None
+            self._db._session.commit()
