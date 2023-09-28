@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-from ssl import _PasswordType
-import uuid
 import bcrypt
 import contextlib
 
@@ -107,8 +105,7 @@ class Auth:
             raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> None:
-        # sourcery skip: raise-from-previous-error
-        """update password method
+        """hash the password and update the users hashed_password
         """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
