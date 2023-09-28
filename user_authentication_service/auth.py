@@ -2,7 +2,6 @@
 import bcrypt
 import contextlib
 
-from click import password_option
 from db import DB
 from user import User
 from uuid import uuid4
@@ -105,7 +104,8 @@ class Auth:
             raise ValueError
 
     def update_password(self, reset_token: str, password: str) -> None:
-        """hash the password and update the users hashed_password
+        """hash the password and update
+        the users hashed_password
         """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
