@@ -5,12 +5,18 @@ from user import User
 from uuid import uuid4
 from sqlalchemy.orm.exc import NoResultFound
 
+
 def _hash_password(password: str) -> bytes:
     """The returned bytes is a salted
     hash of the input password
     """
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode('utf-8'), salt)
+
+
+def _generate_uuid() -> str:
+    """ generate uuid """
+    return str(uuid4())
 
 
 class Auth:
@@ -42,25 +48,23 @@ class Auth:
         except NoResultFound:
             return False
 
+    def _generate_uuid() -> str:
+        """
+        Generate and return a new UUID as a string.
 
-def _generate_uuid() -> str:
-    """
-    Generate and return a new UUID as a string.
+        Returns:
+            str: A string representation of the generated UUID.
+        """
+        return str(uuid4())
 
-    Returns:
-        str: A string representation of the generated UUID.
-    """
-    return str(uuid4())
-
-
-def create_session(self, email: str) -> str:
-    """ Create a session for the user with
-    the given email
-    """
-    try:
-        user = self._db.find_user_by(email=email)
-    except NoResultFound:
-        return None
-    session_id = _generate_uuid()
-    self._db.update_user(user.id, session_id=session_id)
-    return session_id
+    def create_session(self, email: str) -> str:
+        """ Create a session for the user with
+        the given email
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return None
+        session_id = _generate_uuid()
+        self._db.update_user(user.id, session_id=session_id)
+        return session_id
