@@ -37,9 +37,9 @@ def login() -> str:  # sourcery skip: use-named-expression
         abort(401)
 
     session_id = AUTH.create_session(email)
-    msg = {"email": "<user email>", "message": "logged in"}
+    msg = {"email": "<user emai>", "message": "logged in"}
     response = jsonify(msg)
-    response.set_cookie('session_id', session_id)
+    response.set_cookie("session_id", session_id)
     return response
 
 
