@@ -27,15 +27,16 @@ def users():
         return jsonify({"message": "email already registered"}), 400
 
 @app.route('/session', methods=['POST'], strict_slashes=False)
-def login() -> str:
+def login() -> str:  # sourcery skip: use-named-expression
   """login method
   """  
   email = request.form.get('email')
   password = request.form.get('password')
   valid_login = Auth.valid_login(email, password)
+  
   if valid_login:
       session_id = AUTH.create_session(email)
-      msg = {"email": email, "message": "logged in"}
+      msg = {"email": "<user email>", "message": "logged in"}
       response = jsonify(msg)
       response.set_cookie('session_id', session_id)
       return response
