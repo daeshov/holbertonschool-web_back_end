@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from ssl import _PasswordType
 import uuid
 import bcrypt
 import contextlib
@@ -105,14 +106,14 @@ class Auth:
             # If the user does not exist, raise a ValueError
             raise ValueError
 
-    def update_password(self, reset_token: str, new_password: str):
+    def update_password(self, reset_token: str, password: str) -> None:
         # sourcery skip: raise-from-previous-error
         """update password method
         """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
             hashed_password = bcrypt.hashpw(
-                password_option.encode('utf-8'), bcrypt.gensalt())
+                password.encode('utf-8'), bcrypt.gensalt())
             self._db.update_user(
                 user.id,
                 reset_token=None,
