@@ -3,7 +3,7 @@ import bcrypt
 from db import DB
 from user import User
 from uuid import uuid4
-
+from sqlalchemy.orm.exc import NoResultFound
 
 def _hash_password(password: str) -> bytes:
     """The returned bytes is a salted
@@ -51,3 +51,16 @@ def _generate_uuid() -> str:
         str: A string representation of the generated UUID.
     """
     return str(uuid4())
+
+
+def create_session(self, email: str) -> str:
+    """ Create a session for the user with
+    the given email
+    """
+    try:
+        user = self._db.find_user_by(email=email)
+    except NoResultFound:
+        return None
+    session_id = _generate_uuid()
+    self._db.update_user(user.id, session_id=session_id)
+    return session_id
