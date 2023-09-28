@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import uuid
 import bcrypt
 import contextlib
 from db import DB
@@ -89,20 +90,14 @@ class Auth:
             self._db._session.commit()
 
     def get_reset_password_token(self, email: str) -> str:
+        # sourcery skip: raise-from-previous-error
         """Generate and update reset password token for the user"""
         try:
-            # Find the user corresponding to the email
             user = self._db.find_user_by(email=email)
-
-            # Generate a UUID as the reset token
-            reset_token = str(uuid.uuid4())
-
-            # Update the user's reset_token field
-            user.reset_token = reset_token
-            self._db.commit()
-
+            token = str(uuid.uuid4())
+            self._db.update_user(user.id, session_id=None)
+            return token
             # Return the reset token
-            return reset_token
-        except ValueError:
+        except NoResultFound:
             # If the user does not exist, raise a ValueError
-            raise ValueError("User not found.")
+            raise ValueError
