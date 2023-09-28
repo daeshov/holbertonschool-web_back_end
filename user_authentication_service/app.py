@@ -17,7 +17,7 @@ def users():
     """user endpoint
     """
     email = request.form.get("email")
-    password = request.form.get("email")
+    password = request.form.get("password")
 
     try:
         AUTH.register(email, password)
