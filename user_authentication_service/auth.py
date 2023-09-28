@@ -2,10 +2,13 @@
 import uuid
 import bcrypt
 import contextlib
+
+from click import password_option
 from db import DB
 from user import User
 from uuid import uuid4
 from sqlalchemy.orm.exc import NoResultFound
+import logging
 
 
 def _hash_password(password: str) -> bytes:
@@ -102,14 +105,18 @@ class Auth:
             # If the user does not exist, raise a ValueError
             raise ValueError
 
-    
     def update_password(self, reset_token: str, new_password: str):
+        # sourcery skip: raise-from-previous-error
+        """update password method
         """
-        """ 
         try:
             user = self._db.find_user_by(reset_token=reset_token)
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            self._db.update_user(user.id, reset_token=None, hashed_password=hashed_password)
+            hashed_password = bcrypt.hashpw(
+                password_option.encode('utf-8'), bcrypt.gensalt())
+            self._db.update_user(
+                user.id,
+                reset_token=None,
+                hashed_password=hashed_password)
             return reset_token
         except NoResultFound:
             raise ValueError
