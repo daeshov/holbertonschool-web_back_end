@@ -5,9 +5,10 @@ Unittests for client
 import unittest
 from unittest.mock import patch, PropertyMock
 from parameterized import parameterized, parameterized_class
+from requests import HTTPError
 from client import GithubOrgClient
 import client
-from fixtures import TEST_PAYLOAD
+from fixtures import org_payload, repos_payload, expected_repos, apache2_repos, TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -64,12 +65,31 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_has_license(self, dict_license, key_license, expc_result):
         """
         """
-
+        github_client = client.GithubOrgClient('test_org')
+    
         self.assertEqual(
-            client.GithubOrgClient.has_license(dict_license, key_license),
+            github_client.has_license(dict_license, key_license),
             expc_result
         )
 
+@parameterized_class(
+        ("org_payload", "repos_payload", "expected_repos", "apache2_repos", "license_key"),
+        TEST_PAYLOAD
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """GithubOrgClient.public_repos method in an integration test.
+    That means that we will only mock code that sends external requests.
+    """    
+    @classmethod
+    def setUpClass(cls):
+        """set-up class
+        """        
+        cls.get_patcher = patch('requests.get', side_effect=HTTPError)
+        cls.mock_get = cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.get_patcher.stop()
 
 if __name__ == '__main__':
     unittest.main()
