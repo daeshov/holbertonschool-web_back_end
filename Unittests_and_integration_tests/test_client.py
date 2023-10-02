@@ -56,6 +56,18 @@ class TestGithubOrgClient(unittest.TestCase):
             )
             get_json_mock.assert_called_once()
 
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, dict_license, key_license, expc_result):
+        """
+        """
+
+        self.assertEqual(
+            client.GithubOrgClient.has_license(dict_license, key_license),
+            expc_result
+        )
 
 if __name__ == '__main__':
     unittest.main()
