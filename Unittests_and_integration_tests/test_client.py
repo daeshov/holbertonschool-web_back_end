@@ -39,6 +39,23 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(
                 org_client.org['repos_url'], org_client._public_repos_url
             )
+    @patch("client.get_json", return_value={'key': '12345'})
+    def test_public_repos(self, get_json_mock):
+        """
+        """
+        get_json_mock()
+        with patch(
+            'client.GithubOrgClient._public_repos_url',
+                new_callable=PropertyMock ) as msk:
+            msk.return_value = {'key': '12345'}
+            test_obj = client
+            test_obj = test_obj.GithubOrgClient('another_test')
+            next = test_obj._public_repos_url
+            self.assertEqual(
+                next, msk.return_value
+            )
+            get_json_mock.assert_called_once()
+
 
 if __name__ == '__main__':
     unittest.main()
