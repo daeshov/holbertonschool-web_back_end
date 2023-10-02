@@ -27,6 +27,18 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(gitclient.org, result)
             gc.assert_called_once()
 
+    def test_public_repos_url(self):
+        """Test GithubOrgClient._public_repos_url property
+        """
+        with patch(
+            'client.GithubOrgClient.org', new_callable=PropertyMock
+                ) as gc:
+            gc.return_value = {'repos_url': 'test.io'}
+            org_client = client
+            org_client = org_client.GithubOrgClient('test_org')
+            self.assertEqual(
+                org_client.org['repos_url'], org_client._public_repos_url
+            )
 
 if __name__ == '__main__':
     unittest.main()
