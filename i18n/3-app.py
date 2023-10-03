@@ -43,8 +43,8 @@ def get_locale():
 def gettext():
     """reload page with translations
     """
-    return render_template('3-index.html')
+    return render_template("3-index.html")
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000")
