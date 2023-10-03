@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""an instantiate a Babel
+object in a Flask app
+"""
 from flask import Flask, render_template
 from flask_babel import Babel
 
@@ -8,6 +12,8 @@ babel = Babel(app)
 
 
 class Config:
+    """babel configuration
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
