@@ -2,6 +2,7 @@
 """get_locale function with
 the babel.localeselector decorator
 """
+from distutils import config
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
 
@@ -34,14 +35,16 @@ def index():
 def get_locale():
     """get_locale function
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    if local_l := request.args.get("locale"):
+        return
+    return request.accept_languages.best_match(config.LANGUAGES)
 
 
 @app.route('/', methods=["GET"])
 def gettext():
     """reload page with translations
     """
-    return render_template('3-index.html')
+    return render_template('4-index.html')
 
 
 if __name__ == '__main__':
