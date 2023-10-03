@@ -2,7 +2,7 @@
 """get_locale function with
 the babel.localeselector decorator
 """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
