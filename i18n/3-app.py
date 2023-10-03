@@ -38,7 +38,7 @@ def get_locale():
 
 
 @app.route('/', methods=["GET"])
-def index():
+def gettext():
     """reload page with translations
     """
     home_title = _("home_title")
