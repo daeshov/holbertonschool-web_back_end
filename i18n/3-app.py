@@ -3,7 +3,7 @@
 the babel.localeselector decorator
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, gettext
 
 
 app = Flask(__name__, template_folder='templates')
@@ -25,25 +25,20 @@ Babel.default_locale = "en"
 Babel.default_timezone = "UTC"
 
 
-@app.route('/')
-def index():
-    """route to
-    """
-    return render_template('3-index.html')
-
-
 @babel.localeselector
 def get_locale():
     """get_locale function
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 @app.route('/', methods=["GET"])
-def gettext():
+def message():
     """reload page with translations
     """
-    return render_template("3-index.html")
+    home_title = gettext('home_title')
+    home_header = gettext('home_header')
+    return render_template('3-index.html', home_title=home_title, home_header=home_header)
 
 
 if __name__ == "__main__":
