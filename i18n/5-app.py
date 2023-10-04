@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """get_locale function with the babel.localeselector decorator."""
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext
+from flask_babel import Babel, _, gettext
 
 
 app = Flask(__name__, template_folder='templates')
@@ -33,6 +33,7 @@ def get_user(user_id):
     """Gets user."""
     return users.get(user_id)
 
+# Define a before_request function to set the user as a global variable on flask.g
 @app.before_request
 def before_request():
     user_id = request.args.get('login_as', type=int)
