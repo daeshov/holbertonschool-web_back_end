@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""get_locale function with
-the babel.localeselector decorator
-"""
+"""get_locale function with the babel.localeselector decorator."""
 from flask import Flask, render_template, request
 from flask_babel import Babel, gettext
 
@@ -13,8 +11,8 @@ babel = Babel(app)
 
 
 class Config:
-    """babel configuration class
-    """
+    """babel configuration class."""
+
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -27,15 +25,13 @@ Babel.default_timezone = "UTC"
 
 @babel.localeselector
 def get_locale():
-    """get_locale function
-    """
+    """get_locale function."""
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 @app.route('/', methods=["GET"])
 def message():
-    """reload page with translations
-    """
+    """Reload page with translations."""
     # gettext to link translations string
     home_title = gettext('home_title')
     home_header = gettext('home_header')
