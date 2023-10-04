@@ -31,16 +31,17 @@ users = {
 
 def get_user(user_id):
     """Gets user."""
-    return users.get(user_id)
+    try:
+        user_id = request.args.get('login_as')
+        return users[int(user_id)]
+    except Exception:
+        return None
 
 # Define a before_request function to set the user as a global variable on flask.g
 @app.before_request
 def before_request():
-    user_id = request.args.get('login_as', type=int)
-    if user_id:
-        g.user = get_user(user_id)
-    else:
-        g.user = None
+    """Before request."""
+    g.user = get_user()
 
 
 @babel.localeselector
