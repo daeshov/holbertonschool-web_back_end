@@ -29,6 +29,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 def get_user():
     """Gets user."""
     try:
@@ -37,7 +38,10 @@ def get_user():
     except Exception:
         return None
 
-# Define a before_request function to set the user as a global variable on flask.g
+# Define a before_request function to set the user as a global variable on
+# flask.g
+
+
 @app.before_request
 def before_request():
     """Before request."""
