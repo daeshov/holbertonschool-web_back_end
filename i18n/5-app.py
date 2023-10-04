@@ -29,7 +29,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
-def get_user(user_id):
+def get_user():
     """Gets user."""
     try:
         user_id = request.args.get('login_as')
