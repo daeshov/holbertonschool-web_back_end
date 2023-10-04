@@ -38,8 +38,7 @@ def message():
     """
     home_title = gettext('home_title')
     home_header = gettext('home_header')
-    """gettext to link translations string
-    """
+    # gettext to link translations string
     return render_template(
         '3-index.html',
         home_title=home_title,
