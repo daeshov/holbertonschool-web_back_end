@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-"""get_locale function with
-the babel.localeselector decorator
-"""
-from distutils import config
+"""get_locale function with the babel.localeselector decorator."""
 from flask import Flask, render_template, request
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 
 app = Flask(__name__, template_folder='templates')
@@ -14,38 +11,29 @@ babel = Babel(app)
 
 
 class Config:
-    """babel configuration
-    """
+    """babel configuration class."""
+
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app.config.from_object(Config)
-
-
-@app.route('/')
-def index():
-    """route to
-    """
-    return render_template('3-index.html')
+Babel.default_locale = "en"
+Babel.default_timezone = "UTC"
 
 
 @babel.localeselector
 def get_locale():
-    """get_locale function
-    """
-    if local_l := request.args.get("locale"):
-        return
-    return request.accept_languages.best_match(config.LANGUAGES)
+    """get_locale function."""
+    return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 @app.route('/', methods=["GET"])
-def gettext():
-    """reload page with translations
-    """
-    return render_template('4-index.html')
+def message():
+    """Reload page with translations."""
+    return render_template('3-index.html')
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000")
