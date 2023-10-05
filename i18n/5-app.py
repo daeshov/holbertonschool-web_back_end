@@ -3,7 +3,6 @@
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
 
-
 app = Flask(__name__, template_folder='templates')
 
 # Create a Babel object and configure it
@@ -30,7 +29,6 @@ users = {
 }
 
 
-
 def get_user():
     """Gets user."""
     user_id = request.args.get('login_as')
@@ -51,6 +49,7 @@ def before_request():
     g.user = get_user()
 
 
+@babel.localeselector
 def get_locale():
     """get_locale function."""
     g_locale = request.args.get("locale")
