@@ -30,7 +30,7 @@ users = {
 
 
 def get_user():
-    """Gets user."""
+    """Get user."""
     user_id = request.args.get('login_as')
     if user_id is not None:
         try:
