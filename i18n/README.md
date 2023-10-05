@@ -17,3 +17,6 @@ A documentation is not a simple word, it’s a real sentence explaining what’s
 All your functions and coroutines must be type-annotated.
 
 autopep8 --in-place --aggressive --aggressive
+
+for backend envirement
+source backenv/Scripts/activate

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """get_locale function with the babel.localeselector decorator."""
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 app = Flask(__name__, template_folder='templates')
 
@@ -45,17 +45,20 @@ def before_request():
     """Before request."""
     g.user = get_user()
 
+
+
+@babel.localeselector
 def get_locale():
     """get_locale function."""
-    g_locale = request.args.get("locale")
+    g_locale = request.args.get('locale')
     if g_locale:
         return g_locale
-    return request.accept_languages.best_match(Config.LANGUAGES)
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-@app.route('/', methods=["GET"])
+@app.route('/', methods=["GET"], strict_slashes=False)
 def message():
     """Reload page with translations."""
     return render_template('5-index.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5000", threaded=True, debug=True )
