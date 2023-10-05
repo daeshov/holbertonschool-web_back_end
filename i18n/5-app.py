@@ -28,7 +28,6 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
-
 def get_user():
     """Gets user."""
     user_id = request.args.get('login_as')
@@ -41,15 +40,11 @@ def get_user():
 
 # Define a before_request function to set the user as a global variable on
 # flask.g
-
-
 @app.before_request
 def before_request():
     """Before request."""
     g.user = get_user()
 
-
-@babel.localeselector
 def get_locale():
     """get_locale function."""
     g_locale = request.args.get("locale")
@@ -57,12 +52,10 @@ def get_locale():
         return g_locale
     return request.accept_languages.best_match(Config.LANGUAGES)
 
-
 @app.route('/', methods=["GET"])
 def message():
     """Reload page with translations."""
     return render_template('5-index.html')
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
