@@ -21,3 +21,15 @@ class Cache:
             self._redis.set(random_key, data)
         # Return the generated key
         return random_key
+
+    def get(self, key: str, fn: Callable = None):
+        data = self._redis.get(key)
+        if data is not None and fn is not None:
+            return fn(data)
+        return data
+
+    def get_str(self, key: str):
+        return self.get(key, fn=lambda d: d.decode("utf-8"))
+
+    def get_int(self, key: str):
+        return self.get(key, fn=int)
