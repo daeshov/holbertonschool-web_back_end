@@ -45,6 +45,7 @@ def call_history(method: Callable) -> Callable:
         return output
     return wrapper
 
+
 @staticmethod
 def replay(method: Callable):
     qualified_name = method.__qualname__
