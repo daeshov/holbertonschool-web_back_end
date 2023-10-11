@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Cache Class: A class that provides caching functionality with method decorators."""
+"""Cache Class: A class that provides caching functionality.
+with method decorators."""
 
 import redis
 import uuid
 from typing import Union, Callable
 
 from functools import wraps
+
 
 # Decorator to count method calls
 def count_calls(method: Callable) -> Callable:
@@ -71,7 +73,7 @@ def replay(method: Callable):
 
 
 class Cache:
-    """Cashe class."""  
+    """Cashe class."""
 
     def __init__(self):
         """Initialize the Cache class and Redis."""
@@ -92,7 +94,8 @@ class Cache:
         return random_key
 
     def get(self, key: str, fn: Callable = None):
-        """Get data from the cache and apply an optional conversion function."""
+        """Get data from the cache and apply an optional
+        conversion function."""
         data = self._redis.get(key)
         if data is not None and fn is not None:
             return fn(data)
