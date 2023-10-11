@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""_summary_
+"""class cache
 """
 import redis
 import uuid
