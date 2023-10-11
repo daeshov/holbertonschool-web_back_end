@@ -9,20 +9,20 @@ from functools import wraps
 
 # Decorator to count method calls
 def count_calls(method: Callable) -> Callable:
-        @wraps(method)
-        def wrapper(self, *args, **kwargs):
-            key = method.__qualname__
-            count_key = f"calls:{key}"
-            self._redis.incr(count_key)
-            return method(self, *args, **kwargs)
-        return wrapper
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        key = method.__qualname__
+        count_key = f"calls:{key}"
+        self._redis.incr(count_key)
+        return method(self, *args, **kwargs)
+    return wrapper
     
 @count_calls
 def get(self, key: str, fn: Callable = None):
-        data = self._redis.get(key)
-        if data is not None and fn is not None:
-            return fn(data)
-        return data
+    data = self._redis.get(key)
+    if data is not None and fn is not None:
+        return fn(data)
+    return data
 
 
 class Cache:
