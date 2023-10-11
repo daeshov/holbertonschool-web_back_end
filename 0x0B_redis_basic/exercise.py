@@ -7,6 +7,7 @@ import uuid
 from typing import Union, Callable
 from functools import wraps
 
+
 # Decorator to count method calls
 def count_calls(method: Callable) -> Callable:
     @wraps(method)
@@ -15,7 +16,8 @@ def count_calls(method: Callable) -> Callable:
         self._redis.incr(count_key)
         return method(self, *args, **kwargs)
     return wrapper
-    
+
+
 @count_calls
 def get(self, key: str, fn: Callable = None):
     data = self._redis.get(key)
@@ -24,14 +26,14 @@ def get(self, key: str, fn: Callable = None):
     return data
 
 
- # Decorator to store input and output history
+# Decorator to store input and output history
 def call_history(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         qualified_name = method.__qualname__
         input_list_key = f"{qualified_name}:inputs"
         output_list_key = f"{qualified_name}:outputs"
-        
+
         # Store input as a string
         input_str = str(args)
         self._redis.rpush(input_list_key, input_str)
@@ -81,10 +83,10 @@ class Cache:
         qualified_name = method.__qualname__
         input_list_key = f"{qualified_name}:inputs"
         output_list_key = f"{qualified_name}:outputs"
-        
+
         inputs = Cache._redis.lrange(input_list_key, 0, -1)
         outputs = Cache._redis.lrange(output_list_key, 0, -1)
-        
+
         print(f"{qualified_name} was called {len(inputs)} times:")
         for input_str, output_str in zip(inputs, outputs):
             print(f"{qualified_name}({input_str}) -> {output_str}")
