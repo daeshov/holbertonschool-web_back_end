@@ -4,7 +4,7 @@
 """
 import redis
 import uuid
-from typing import Union, Callable
+from typing import Union, Callable, Optional
 from functools import wraps
 
 
@@ -47,6 +47,22 @@ def call_history(method: Callable) -> Callable:
         return output
     return wrapper
 
+def replay(method: Callable):
+    """ display the history of calls of a particular function """
+    key = method.__qualname__
+    inputs = key + ":inputs"
+    outputs = key + ":outputs"
+    redis = method.__self__._redis
+    count = redis.get(key).decode("utf-8")
+    print("{} was called {} times:".format(key, count))
+    inputList = redis.lrange(inputs, 0, -1)
+    outputList = redis.lrange(outputs, 0, -1)
+    redis_zipped = list(zip(inputList, outputList))
+    for a, b in redis_zipped:
+        attr, data = a.decode("utf-8"), b.decode("utf-8")
+        print("{}(*{}) -> {}".format(key, attr, data))
+
+
 
 class Cache:
     def __init__(self):
@@ -78,15 +94,3 @@ class Cache:
     def get_int(self, key: str):
         return self.get(key, fn=int)
 
-    @staticmethod
-    def replay(method: Callable):
-        qualified_name = method.__qualname__
-        input_list_key = f"{qualified_name}:inputs"
-        output_list_key = f"{qualified_name}:outputs"
-
-        inputs = Cache._redis.lrange(input_list_key, 0, -1)
-        outputs = Cache._redis.lrange(output_list_key, 0, -1)
-
-        print(f"{qualified_name} was called {len(inputs)} times:")
-        for input_str, output_str in zip(inputs, outputs):
-            print(f"{qualified_name}({input_str}) -> {output_str}")
