@@ -11,8 +11,7 @@ from functools import wraps
 def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwargs):
-        key = method.__qualname__
-        count_key = f"calls:{key}"
+        count_key = method.__qualname__
         self._redis.incr(count_key)
         return method(self, *args, **kwargs)
     return wrapper
