@@ -24,12 +24,35 @@ def get(self, key: str, fn: Callable = None):
     return data
 
 
+ # Decorator to store input and output history
+def call_history(method: Callable) -> Callable:
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        qualified_name = method.__qualname__
+        input_list_key = f"{qualified_name}:inputs"
+        output_list_key = f"{qualified_name}:outputs"
+        
+        # Store input as a string
+        input_str = str(args)
+        self._redis.rpush(input_list_key, input_str)
+
+        # Call the original method to retrieve the output
+        output = method(self, *args, **kwargs)
+
+        # Store the output as a string
+        self._redis.rpush(output_list_key, str(output))
+
+        return output
+    return wrapper
+
+
 class Cache:
     def __init__(self):
         # Initialize a Redis client and flush the database
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         random_key = str(uuid.uuid4())
