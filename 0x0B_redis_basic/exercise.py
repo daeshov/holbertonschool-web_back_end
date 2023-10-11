@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """class cache
 """
 import redis
@@ -44,6 +45,7 @@ class Cache:
             self._redis.incr(count_key)
             return method(self, *args, **kwargs)
         return wrapper
+    
     @count_calls
     def get(self, key: str, fn: Callable = None):
         data = self._redis.get(key)
