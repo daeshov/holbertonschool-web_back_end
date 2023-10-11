@@ -19,6 +19,5 @@ class Cache:
             self._redis.set(random_key, str(data))
         else:
             self._redis.set(random_key, data)
-
         # Return the generated key
         return random_key
