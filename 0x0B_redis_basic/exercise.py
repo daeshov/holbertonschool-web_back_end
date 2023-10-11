@@ -45,6 +45,19 @@ def call_history(method: Callable) -> Callable:
         return output
     return wrapper
 
+@staticmethod
+def replay(method: Callable):
+    qualified_name = method.__qualname__
+    input_list_key = f"{qualified_name}:inputs"
+    output_list_key = f"{qualified_name}:outputs"
+    
+    inputs = Cache._redis.lrange(input_list_key, 0, -1)
+    outputs = Cache._redis.lrange(output_list_key, 0, -1)
+    
+    print(f"{qualified_name} was called {len(inputs)} times:")
+    for input_str, output_str in zip(inputs, outputs):
+        print(f"{qualified_name}({input_str}) -> {output_str}")
+
 
 class Cache:
     def __init__(self):
@@ -76,15 +89,4 @@ class Cache:
     def get_int(self, key: str):
         return self.get(key, fn=int)
 
-    @staticmethod
-    def replay(method: Callable):
-        qualified_name = method.__qualname__
-        input_list_key = f"{qualified_name}:inputs"
-        output_list_key = f"{qualified_name}:outputs"
-        
-        inputs = Cache._redis.lrange(input_list_key, 0, -1)
-        outputs = Cache._redis.lrange(output_list_key, 0, -1)
-        
-        print(f"{qualified_name} was called {len(inputs)} times:")
-        for input_str, output_str in zip(inputs, outputs):
-            print(f"{qualified_name}({input_str}) -> {output_str}")
+   
