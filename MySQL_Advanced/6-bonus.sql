@@ -1,3 +1,4 @@
+-- Add bonus 
 DELIMITER $$
 
 CREATE PROCEDURE AddBonus(
