@@ -1,5 +1,4 @@
 -- ranks country origins of bands, ordered by the number
-USE holberton;
 
 SELECT origin, SUM(fans) AS nb_fans
 FROM metal_bands
