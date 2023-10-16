@@ -1,6 +1,6 @@
 -- ranked by their longevity
-
-SELECT band_name, TIMESTAMPDIFF(YEAR, formed, split) AS lifespan
+SELECT band_name, IFNULL(TIMESTAMPDIFF(YEAR, MIN(formed), MAX(split)), 0) AS lifespan
 FROM metal_bands
-WHERE style = 'Glam rock'
+WHERE style LIKE '%Glam rock%'
+GROUP BY band_name
 ORDER BY lifespan DESC;
