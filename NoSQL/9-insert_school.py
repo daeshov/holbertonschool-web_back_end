@@ -3,6 +3,7 @@
 
 
 def insert_school(mongo_collection, **kwargs):
+    """Insert a new doc."""    
     new_doc = kwargs
     result = mongo_collection.insert_one(new_doc)
     return result.inserted_id
