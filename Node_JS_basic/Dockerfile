@@ -1,5 +1,7 @@
-# As of 2023-09-13, Ubuntu 22.04 is the latest LTS release
-FROM ubuntu:22.04
+# For Node_js_basic
+
+# Use Ubuntu 18.04 base image
+FROM ubuntu:18.04
 
 # This will stop openssh-server installer from opening a dialog,
 # which would require human input
@@ -9,6 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y git
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - 
+RUN apt-get install -y nodejs
 
 # Install SSH so we can connect to the container
 RUN apt-get install -y openssh-server
@@ -20,21 +24,24 @@ RUN apt-get install -y openssh-server
 # RUN apt-get install -y python3 python3-pip
 # RUN pip3 install flask
 
-# Allow root to login via SSH
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+# Make python3.7 the default python3 - it it exists, remove it, then create it
+RUN if [ -e /usr/bin/python3 ]; then rm /usr/bin/python3; fi && ln -s /usr/bin/python3.7 /usr/bin/python3
 
-# Allow password to login via SSH
-RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+# Update pip
+RUN python3 -m pip install --upgrade pip
 
-# Set SSH password to "root"
-RUN echo 'root:root' | chpasswd
+# Copy your requirements file into the container
+COPY requirements.txt .
+
+# Install the Python packages using pip3
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Start the SSH service
 RUN service ssh start
 
-# Setup git config
-RUN git config --global user.email REPLACE_WITH_YOUR_EMAIL@DOMAIN.COM
-RUN git config --global user.name "REPLACE WITH YOUR NAME"
+# Setup git config - replace with your info
+RUN git config --global user.email "jdarahthomas@gmail.com"
+RUN git config --global user.name "daeshov"
 
 # Example of how to include your SSH key for GitHub:
 # COPY host-machine-github-private-key /root/.ssh/github-private-key
