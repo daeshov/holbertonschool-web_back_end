@@ -1,20 +1,26 @@
 const http = require('http');
-const countStudents = require('./3-read_file_async');
+const url = require('url');
+const countStudents = require('./3-read_file_async'); // Import the countStudents function
 
 const app = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  const { url } = req;
-  if (url === '/') res.end('Hello Holberton School!');
-  else if (url === '/students') {
-    countStudents(process.argv[2])
-      .then((message) => {
-        const response = `This is the list of our students\n${message}`;
-        res.end(response);
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+
+  if (path === '/') {
+    res.end('Hello Holberton School!\n');
+  } else if (path === '/students') {
+    const databasePath = 'database.csv'; // Adjust the path as needed
+    countStudents(databasePath)
+      .then((data) => {
+        res.end(`This is the list of our students\n${data}`);
       })
-      .catch((err) => {
-        res.end(`${err.message}\n`);
+      .catch((error) => {
+        res.end(`This is the list of our students\n${error.message}`);
       });
+  } else {
+    res.end('Not Found\n');
   }
 });
 
