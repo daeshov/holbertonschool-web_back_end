@@ -27,3 +27,5 @@ autopep8 --in-place --aggressive --aggressive
 
 for backend envirement
 source backenv/Scripts/activate
+
+ npm run lint --fix 1-stdin.js
