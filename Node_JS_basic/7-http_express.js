@@ -1,27 +1,23 @@
 const express = require('express');
+const countStudents = require('./3-read_file_async');
+
 const app = express();
-const countStudents = require('./3-read_file_async'); // Import the countStudents function
 
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.status(200).send('Hello Holberton School!');
-});
-
-app.get('/students', (req, res) => {
-  const databasePath = 'database.csv'; // Adjust the path as needed
-  countStudents(databasePath)
-    .then((data) => {
-      const response = `This is the list of our students\n${data}`;
-      res.status(200).send(response);
+app.get('/students', async (req, res) => {
+  countStudents(process.argv[2])
+    .then((message) => {
+      const response = `This is the list of our students\n${message}`;
+      res.send(response);
     })
-    .catch((error) => {
-      res.status(500).send(`This is the list of our students\n${error.message}`);
+    .catch((err) => {
+      res.send(`${err.message}`);
     });
 });
 
-app.listen(1245, () => {
-  console.log('Server is running on port 1245');
+app.get('/', (req, res) => {
+  res.send('Hello Holberton School!');
 });
+
+app.listen(1245);
 
 module.exports = app;
