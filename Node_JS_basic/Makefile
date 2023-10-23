@@ -4,7 +4,7 @@ build:
 
 # Runs the dev-box image in a container
 run:
-	docker run -it --rm --name nodejs
+	docker run -it --rm --name nodejs nodejs
 
 stop:
 	docker stop nodejs
