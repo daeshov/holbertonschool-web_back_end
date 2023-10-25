@@ -1,0 +1,19 @@
+{
+  "name": "unittests_in_js",
+  "version": "1.0.0",
+  "description": "for unittests project",
+  "main": "0-calcul.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "unittests",
+    "project"
+  ],
+  "author": "darah thomas",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0"
+  }
+}
