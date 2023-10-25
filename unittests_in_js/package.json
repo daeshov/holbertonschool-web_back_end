@@ -4,7 +4,7 @@
   "description": "for unittests project",
   "main": "0-calcul.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha"
   },
   "keywords": [
     "unittests",
