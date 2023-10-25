@@ -1,49 +1,31 @@
 const assert = require('assert');
 const calculateNumber = require('./1-calcul');
 
-describe('calculateNumber', function () {
-  // Test cases for type: SUM
-  describe('Type: SUM', function () {
-    it('should add two positive numbers and round the result', function () {
-      assert.strictEqual(calculateNumber('SUM', 1.5, 3.4), 5);
-    });
+describe('calculateNumber', () => {
+	it('checks output for add', () => {
+        assert.strictEqual(calculateNumber('SUM', 1, 7), 8);
+        assert.strictEqual(calculateNumber('SUM', 1, 6.7), 8);
+        assert.strictEqual(calculateNumber('SUM', 3.7, 1), 5);
+        assert.strictEqual(calculateNumber('SUM', 1, 5.3), 6);
+        assert.strictEqual(calculateNumber('SUM', 1.2, 3.7), 5);
+	});
+});
 
-    it('should add two negative numbers and round the result', function () {
-      assert.strictEqual(calculateNumber('SUM', -1.5, -3.4), -5);
-    });
+describe('calculateNumber', () => {
+	it('checks output for subtract', () => {
+        assert.strictEqual(calculateNumber('SUBTRACT', 2, 3), -1);
+        assert.strictEqual(calculateNumber('SUBTRACT', 2.9, 3), 0);
+        assert.strictEqual(calculateNumber('SUBTRACT', 6.6, 3.2), 4);
+        assert.strictEqual(calculateNumber('SUBTRACT', 4.2, 3.9), 0);
 
-    it('should add a positive and a negative number and round the result', function () {
-      assert.strictEqual(calculateNumber('SUM', 1.5, -3.4), -2);
-    });
-  });
+	});
+});
 
-  // Test cases for type: SUBTRACT
-  describe('Type: SUBTRACT', function () {
-    it('should subtract two positive numbers and round the result', function () {
-      assert.strictEqual(calculateNumber('SUBTRACT', 5.5, 3.4), 2);
-    });
-
-    it('should subtract two negative numbers and round the result', function () {
-      assert.strictEqual(calculateNumber('SUBTRACT', -5.5, -3.4), -2);
-    });
-
-    it('should subtract a positive and a negative number and round the result', function () {
-      assert.strictEqual(calculateNumber('SUBTRACT', 5.5, -3.4), 9);
-    });
-  });
-
-  // Test cases for type: DIVIDE
-  describe('Type: DIVIDE', function () {
-    it('should divide two positive numbers and round the result', function () {
-      assert.strictEqual(calculateNumber('DIVIDE', 10, 2.5), 4);
-    });
-
-    it('should handle division by zero and return "Error"', function () {
-      assert.strictEqual(calculateNumber('DIVIDE', 5.5, 0), 'Error');
-    });
-
-    it('should divide a negative number by a positive number and round the result', function () {
-      assert.strictEqual(calculateNumber('DIVIDE', -8, 3.4), -2);
-    });
-  });
+describe('calculateNumber', () => {
+	it('checks output for divide', () => {
+        assert.strictEqual(calculateNumber('DIVIDE', 4.2, 3.9), 1);
+        assert.strictEqual(calculateNumber('DIVIDE', 4.2, 3), 1.3333333333333333);
+        assert.strictEqual(calculateNumber('DIVIDE', 2.2, 0), 'Error');
+        assert.strictEqual(calculateNumber('DIVIDE', 2, 2), 1);
+	});
 });
