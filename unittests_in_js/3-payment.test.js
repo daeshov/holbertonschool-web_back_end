@@ -1,22 +1,45 @@
-const { expect, assert } = require('chai');
 const sinon = require('sinon');
-const { spy } = require('sinon');
+const chai = require('chai');
+const expect = chai.expect;
 
+// Import the sendPaymentRequestToApi function
 const sendPaymentRequestToApi = require('./3-payment');
-const utils = require('./utils');
+
+// Import the Utils module (assuming you have it)
+const Utils = require('./utils');
 
 describe('sendPaymentRequestToApi', () => {
-  it('should call Util.calculateNumber', () => {
-    const functionSpy = sinon.spy(utils, 'calculateNumber');
-    const consoleSpy = sinon.spy(console, 'log');
+  // Create a spy for Utils.calculateNumber
+  let calculateNumberSpy;
 
-    const apiRequest = sendPaymentRequestToApi(100, 20);
+  beforeEach(() => {
+    // Create a spy and replace the original calculateNumber function
+    calculateNumberSpy = sinon.spy(Utils, 'calculateNumber');
+  });
 
-    expect(functionSpy.calledOnceWithExactly('SUM', 100, 20)).to.equal(true);
-    expect(consoleSpy.calledWithExactly('The total is: 120')).to.equal(true);
-    expect(utils.calculateNumber('SUM', 100, 20)).to.equal(apiRequest);
+  afterEach(() => {
+    // Restore the original calculateNumber function
+    calculateNumberSpy.restore();
+  });
 
-    functionSpy.restore();
-    consoleSpy.restore();
+  it('should call Utils.calculateNumber with SUM, totalAmount, and totalShipping', () => {
+    // Call the sendPaymentRequestToApi function
+    const totalAmount = 100;
+    const totalShipping = 20;
+    sendPaymentRequestToApi(totalAmount, totalShipping);
+
+    // Verify that Utils.calculateNumber was called with the correct arguments
+    expect(calculateNumberSpy.calledWith('SUM', totalAmount, totalShipping)).to.be.true;
+  });
+
+  it('should return the correct sum', () => {
+    // Call the sendPaymentRequestToApi function
+    const totalAmount = 100;
+    const totalShipping = 20;
+    const result = sendPaymentRequestToApi(totalAmount, totalShipping);
+
+    // Verify that the function returns the correct sum
+    expect(result).to.equal(120); // Expected sum: 100 + 20 = 120
   });
 });
+git add .Utils

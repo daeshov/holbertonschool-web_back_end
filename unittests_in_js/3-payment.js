@@ -1,22 +1,13 @@
-const { expect, assert } = require('chai');
-const sinon = require('sinon');
-const { spy } = require('sinon');
+const Utils = require('./utils'); // Import the Utils module (assuming you have it)
 
-const sendPaymentRequestToApi = require('./3-payment');
-const utils = require('./utils');
+function sendPaymentRequestToApi(totalAmount, totalShipping) {
+  // Calculate the sum using the Utils.calculateNumber function
+  const sum = Utils.calculateNumber('SUM', totalAmount, totalShipping);
 
-describe('sendPaymentRequestToApi', () => {
-  it('should call Util.calculateNumber', () => {
-    const functionSpy = sinon.spy(utils, 'calculateNumber');
-    const consoleSpy = sinon.spy(console, 'log');
+  // Display the result in the console
+  console.log(`The total is: ${sum}`);
 
-    const apiRequest = sendPaymentRequestToApi(100, 20);
+  return sum; // Return the sum (optional)
+}
 
-    expect(functionSpy.calledOnceWithExactly('SUM', 100, 20)).to.equal(true);
-    expect(consoleSpy.calledWithExactly('The total is: 120')).to.equal(true);
-    expect(utils.calculateNumber('SUM', 100, 20)).to.equal(apiRequest);
-
-    functionSpy.restore();
-    consoleSpy.restore();
-  });
-});
+module.exports = sendPaymentRequestToApi; // Export the function
