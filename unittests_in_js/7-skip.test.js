@@ -5,7 +5,7 @@ describe('Testing numbers', () => {
     expect(1 === 1).to.be.true;
   });
 
-  it('2 is equal to 2', () => {
+  it.skip('2 is equal to 2', () => {
     expect(2 === 2).to.be.true;
   });
 
