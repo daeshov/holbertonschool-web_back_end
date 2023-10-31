@@ -1,21 +1,29 @@
-const fs = require('fs');
+// full_server/utils.js
 
-const aggregate = (data) => data.slice(1).reduce(
-  (a, b) => {
-    const [first, , , field] = b.split(',');
-    if (field === 'CS') {
-      a.cs.push(first);
-    } else if (field === 'SWE') a.swe.push(first);
-    return a;
-  },
-  { cs: [], swe: [] },
-);
+import fs from 'fs';
 
-const readDatabase = (path) => new Promise((resolve, reject) => {
-  fs.readFile(path, 'utf-8', (err, res) => {
-    if (err) return reject(new Error('Cannot load the database'));
-    return resolve(aggregate(res.split('\n')));
+function readDatabase(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        reject('Cannot load the database');
+      } else {
+        const lines = data.split('\n');
+        const database = {};
+        lines.forEach((line) => {
+          const [field, firstName] = line.split(',');
+          if (field && firstName) {
+            const normalizedField = field.trim().toLowerCase();
+            if (!database[normalizedField]) {
+              database[normalizedField] = [];
+            }
+            database[normalizedField].push(firstName.trim());
+          }
+        });
+        resolve(database);
+      }
+    });
   });
-});
+}
 
-module.exports = readDatabase;
+export { readDatabase };
